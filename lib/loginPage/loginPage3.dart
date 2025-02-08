@@ -102,7 +102,7 @@ class _LoginPage3State extends State<LoginPage3> {
                               hintText: 'Enter your Password',
                               fillColor: Color(0xFFe4e4ec),
                               filled: true,
-                              border:const OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(16),
                                   bottomRight: Radius.circular(16),
@@ -240,6 +240,9 @@ class _LoginPage3State extends State<LoginPage3> {
                       ),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 14,
                 ),
                 // Gradient Continue Button
                 Container(

@@ -12,7 +12,7 @@ class Splashpage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Trigger navigation after a delay
     Future.delayed(const Duration(milliseconds: 2000), () {
-      Get.off(() => const LoginPage1()); // Navigate to LoginPage
+      Get.off(() => LoginPage1()); // Navigate to LoginPage
     });
 
     return Scaffold(

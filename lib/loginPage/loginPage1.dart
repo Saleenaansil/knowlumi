@@ -1,13 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knowlumi/LearnPage/homeLearnPage.dart';
+import 'package:knowlumi/controllerPage/appController.dart';
 import 'package:knowlumi/customwidget/customColor.dart';
 import 'package:knowlumi/customwidget/customText.dart';
 import 'package:knowlumi/loginPage/loginPage2.dart'; // Import custom widgets
 
 class LoginPage1 extends StatelessWidget {
-  const LoginPage1({super.key});
-
+  LoginPage1({super.key});
+  final Appcontroller appcontroller = Get.put(Appcontroller());
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -121,14 +123,18 @@ class LoginPage1 extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.02),
                 Row(
                   children: [
-                    // Password TextField
+                    // Password Icon TextField
                     SizedBox(
                       width: screenWidth * 0.15, // 15% of screen width
                       height: screenHeight * 0.07, // 7% of screen height
                       child: const TextField(
                         style: TextStyle(fontSize: 12, color: Colors.black),
                         decoration: InputDecoration(
-                          hintText: '*',
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: Color(0xff1F2D43),
+                            size: 18,
+                          ), // Password icon
                           fillColor: Color(0xFFe4e4ec),
                           filled: true,
                           border: OutlineInputBorder(
@@ -151,35 +157,52 @@ class LoginPage1 extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 2), // Responsive spacing
-                    // Expanded Password TextField
+                    // Expanded Password TextField with Eye Icon
                     Expanded(
                       child: SizedBox(
                         height: screenHeight * 0.07, // 7% of screen height
-                        child: const TextField(
-                          style: TextStyle(fontSize: 12, color: Colors.black),
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            fillColor: Color(0xFFe4e4ec),
-                            filled: true,
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                bottomRight: Radius.circular(16),
+                        child: Obx(
+                          () => TextField(
+                            obscureText: !appcontroller.isPasswordVisible.value,
+                            style: TextStyle(fontSize: 12, color: Colors.black),
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              fillColor: Color(0xFFe4e4ec),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
                               ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                bottomRight: Radius.circular(16),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Color(0xFFe4e4ec)),
                               ),
-                              borderSide: BorderSide(color: Color(0xFFe4e4ec)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(16),
-                                bottomRight: Radius.circular(16),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(16),
+                                  bottomRight: Radius.circular(16),
+                                ),
+                                borderSide:
+                                    BorderSide(color: Color(0xFFe4e4ec)),
                               ),
-                              borderSide: BorderSide(color: Color(0xFFe4e4ec)),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  appcontroller.isPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Color(0xff1F2D43),
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  appcontroller.togglePasswordVisibility();
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -213,7 +236,7 @@ class LoginPage1 extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      // Add your onPressed logic here
+                      Get.off(Homelearnpage());
                     },
                     child: const CustomText(
                       text: "Continue",

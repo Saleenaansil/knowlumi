@@ -8,7 +8,8 @@ class CustomContainer extends StatelessWidget {
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? padding;
-  final BorderRadiusGeometry borderRadius;
+  final BorderRadiusGeometry? borderRadius;
+final BoxDecoration decoration;
 
   const CustomContainer({
     this.text,
@@ -17,7 +18,8 @@ class CustomContainer extends StatelessWidget {
     this.width,
     this.height,
     this.padding,
-    required this.borderRadius,
+    this.borderRadius,
+     required this.decoration,
   }) : super(key: key);
 
   @override
