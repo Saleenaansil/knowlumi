@@ -5,8 +5,6 @@ import 'package:knowlumi/LearnPage/myClassPage.dart';
 import 'package:knowlumi/LearnPage/profilePicture.dart';
 import 'package:knowlumi/controllerPage/appController.dart';
 import 'package:knowlumi/customwidget/customColor.dart';
-import 'package:knowlumi/customwidget/customContainer.dart';
-import 'package:knowlumi/selectedCourse/selectedCourse.dart';
 
 class Coursepage extends StatelessWidget {
   Coursepage({super.key});
@@ -25,55 +23,14 @@ class Coursepage extends StatelessWidget {
     {"image": "asset/Icon.png", "courseName": "MongoDB"},
   ];
 
-  void _navigateToPage(int index) {
-    switch (index) {
-      case 0:
-        Get.to(() => Homelearnpage());
-        break;
-      case 1:
-        Get.to(() => Myclasspage());
-        break;
-      case 2:
-        Get.to(() => Coursepage());
-        break;
-      case 3:
-        Get.to(() => Profilepicture());
-        break;
-    }
-  }
-
-  Widget _buildIcon(String imagePath, bool isSelected) {
-    return ShaderMask(
-      shaderCallback: (bounds) {
-        return LinearGradient(
-          colors: isSelected
-              ? [Color(0xFF500C34), Color(0xFFB61B76)]
-              : [Color(0xFFCCCCCC), Color(0xFFCCCCCC)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ).createShader(bounds);
-      },
-      child: Image.asset(imagePath, width: 24, height: 24, color: Colors.white),
-    );
-  }
-
-  BottomNavigationBarItem _buildNavItem(
-      String imagePath, String label, int index) {
-    bool isSelected = appController.selectedIndex.value == index;
-    return BottomNavigationBarItem(
-      icon: _buildIcon(imagePath, isSelected),
-      label: label,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: Color(0xffF5F6F9),
-      body: SingleChildScrollView(
+    return Container(
+      
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -215,24 +172,6 @@ class Coursepage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: Obx(() {
-        return BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: appController.selectedIndex.value,
-          selectedItemColor: Color(0xFF500C34),
-          unselectedItemColor: Color(0xFFCCCCCC),
-          onTap: (int index) {
-            appController.changeIndex(index);
-            _navigateToPage(index);
-          },
-          items: [
-            _buildNavItem("asset/HomePage.png", "Home", 0),
-            _buildNavItem("asset/Myclass.png", "Class", 1),
-            _buildNavItem("asset/Courses.png", "Lessons", 2),
-            _buildNavItem("asset/profile.png", "Account", 3),
-          ],
-        );
-      }),
     );
   }
 }

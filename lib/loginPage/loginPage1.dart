@@ -2,9 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowlumi/LearnPage/homeLearnPage.dart';
+import 'package:knowlumi/LearnPage/myClassPage.dart';
+import 'package:knowlumi/LearnPage/profilePicture.dart';
 import 'package:knowlumi/controllerPage/appController.dart';
 import 'package:knowlumi/customwidget/customColor.dart';
 import 'package:knowlumi/customwidget/customText.dart';
+import 'package:knowlumi/loginPage/login2a.dart';
 import 'package:knowlumi/loginPage/loginPage2.dart'; // Import custom widgets
 
 class LoginPage1 extends StatelessWidget {
@@ -263,7 +266,7 @@ class LoginPage1 extends StatelessWidget {
                       ),
                       onPressed: () {
                         print("Forgot Password button tapped");
-                        Get.off(LoginPage2());
+                        Get.off(LoginPage2a());
                       },
                       child: const Text(
                         "Forgot Password?",
