@@ -28,14 +28,13 @@ class Coursepage extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-      
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: screenHeight * 0.15,
+              height: 112,
               decoration: BoxDecoration(gradient: Customcolor.primaryGradient),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
@@ -87,84 +86,99 @@ class Coursepage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.06,
-                  vertical: screenHeight * 0.02),
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Subscribed Courses",
                       style: TextStyle(
-                          fontSize: screenWidth * 0.05,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff161537))),
-                  SizedBox(height: screenHeight * 0.02),
-                  Column(
-                    children: subscriptedItem.map((item) {
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics:
+                        NeverScrollableScrollPhysics(), // Prevents inner scrolling conflict
+                    itemCount: subscriptedItem.length,
+                    itemBuilder: (context, index) {
+                      var item = subscriptedItem[index];
                       return Container(
-                        height: screenHeight * 0.08,
-                        margin:
-                            EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                        padding: EdgeInsets.all(screenWidth * 0.03),
+                        height: 70,
+                        margin: EdgeInsets.only(bottom: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
                           border:
                               Border.all(color: Colors.grey.shade300, width: 1),
                         ),
-                        child: Row(
-                          children: [
-                            Image.asset(item["image"],
-                                width: screenWidth * 0.05,
-                                height: screenWidth * 0.05),
-                            SizedBox(width: screenWidth * 0.04),
-                            Expanded(
-                              child: Text(item["courseName"],
-                                  style: TextStyle(
-                                      fontSize: screenWidth * 0.04,
-                                      fontWeight: FontWeight.w400)),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Row(
+                            children: [
+                              Image.asset(item["image"],
+                                  width: screenWidth * 0.05,
+                                  height: screenWidth * 0.05),
+                              SizedBox(width: screenWidth * 0.04),
+                              Expanded(
+                                child: Text(item["courseName"],
+                                    style: TextStyle(
+                                        fontSize: screenWidth * 0.04,
+                                        fontWeight: FontWeight.w400)),
+                              ),
+                            ],
+                          ),
                         ),
                       );
-                    }).toList(),
+                    },
                   ),
-                  SizedBox(height: screenHeight * 0.03),
+                ],
+              ),
+            ),
+            SizedBox(height: 14),
+            Padding(
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text("Other Courses",
                       style: TextStyle(
                           fontSize: screenWidth * 0.05,
                           fontWeight: FontWeight.bold,
                           color: Color(0xff161537))),
-                  SizedBox(height: screenHeight * 0.02),
-                  Column(
-                    children: otherCourses.map((item) {
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: otherCourses.length,
+                    itemBuilder: (context, index) {
+                      var item = otherCourses[index];
                       return Container(
-                        height: screenHeight * 0.08,
-                        margin:
-                            EdgeInsets.symmetric(vertical: screenHeight * 0.01),
-                        padding: EdgeInsets.all(screenWidth * 0.03),
+                        height: 70,
+                        margin: EdgeInsets.only(bottom: 14),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
                           border:
                               Border.all(color: Colors.grey.shade300, width: 1),
                         ),
-                        child: Row(
-                          children: [
-                            Image.asset(item["image"],
-                                width: screenWidth * 0.05,
-                                height: screenWidth * 0.05),
-                            SizedBox(width: screenWidth * 0.04),
-                            Expanded(
-                              child: Text(item["courseName"],
-                                  style: TextStyle(
-                                      fontSize: screenWidth * 0.04,
-                                      fontWeight: FontWeight.w400)),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 16),
+                          child: Row(
+                            children: [
+                              Image.asset(item["image"],
+                                  width: screenWidth * 0.05,
+                                  height: screenWidth * 0.05),
+                              SizedBox(width: screenWidth * 0.04),
+                              Expanded(
+                                child: Text(item["courseName"],
+                                    style: TextStyle(
+                                        fontSize: screenWidth * 0.04,
+                                        fontWeight: FontWeight.w400)),
+                              ),
+                            ],
+                          ),
                         ),
                       );
-                    }).toList(),
+                    },
                   ),
                 ],
               ),

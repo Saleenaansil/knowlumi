@@ -42,31 +42,6 @@ class _HomelearnpageState extends State<Homelearnpage> {
     },
   ];
 
-  final List<Map> otherCourses = [
-    {"image": "asset/Icon.png", "courseName": "Junior  WEB DEV - Crash Course"},
-    {"image": "asset/Icon.png", "courseName": "Junior  WEB DEV - Crash Course"},
-    {"image": "asset/Icon.png", "courseName": "MERN"},
-    {"image": "asset/Icon.png", "courseName": "REACT"},
-    {"image": "asset/Icon.png", "courseName": "MongoDB"},
-  ];
-
-  void _navigateToPage(int index) {
-    switch (index) {
-      case 0:
-        Get.to(() => Homelearnpage());
-        break;
-      case 1:
-        Get.to(() => Myclasspage());
-        break;
-      case 2:
-        Get.to(() => Coursepage());
-        break;
-      case 3:
-        Get.to(() => Profilepicture());
-        break;
-    }
-  }
-
   int index = 0;
 
   Widget _buildIcon(String imagePath, bool isSelected) {
@@ -94,7 +69,6 @@ class _HomelearnpageState extends State<Homelearnpage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.width;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Color(0xffF5F6F9),
@@ -557,6 +531,7 @@ class _HomelearnpageState extends State<Homelearnpage> {
             ),
       bottomNavigationBar: BottomNavigationBar(
         //  type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xffFFFFFF),
         currentIndex: index,
         selectedItemColor: Color(0xFF500C34), // Selected label color
         unselectedItemColor: Color(0xFFCCCCCC), // Unselected label color
