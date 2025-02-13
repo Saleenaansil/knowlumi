@@ -85,104 +85,99 @@ class Coursepage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 14, right: 14, top: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Subscribed Courses",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff161537))),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics:
-                        NeverScrollableScrollPhysics(), // Prevents inner scrolling conflict
-                    itemCount: subscriptedItem.length,
-                    itemBuilder: (context, index) {
-                      var item = subscriptedItem[index];
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.only(bottom: 14),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border:
-                              Border.all(color: Colors.grey.shade300, width: 1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Row(
-                            children: [
-                              Image.asset(item["image"],
-                                  width: screenWidth * 0.05,
-                                  height: screenWidth * 0.05),
-                              SizedBox(width: screenWidth * 0.04),
-                              Expanded(
-                                child: Text(item["courseName"],
-                                    style: TextStyle(
-                                        fontSize: screenWidth * 0.04,
-                                        fontWeight: FontWeight.w400)),
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 14, right: 14),
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Subscribed Courses",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff161537))),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics:
+                            NeverScrollableScrollPhysics(), // Prevents inner scrolling conflict
+                        itemCount: subscriptedItem.length,
+                        itemBuilder: (context, index) {
+                          var item = subscriptedItem[index];
+                          return Container(
+                            height: 70,
+                            margin: EdgeInsets.only(bottom: 14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                  color: Colors.grey.shade300, width: 1),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Row(
+                                children: [
+                                  Image.asset(item["image"],
+                                      width: screenWidth * 0.05,
+                                      height: screenWidth * 0.05),
+                                  SizedBox(width: screenWidth * 0.04),
+                                  Expanded(
+                                    child: Text(item["courseName"],
+                                        style: TextStyle(
+                                            fontSize: screenWidth * 0.04,
+                                            fontWeight: FontWeight.w400)),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 14),
-            Padding(
-              padding: const EdgeInsets.only(left: 14, right: 14, top: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Other Courses",
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.05,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff161537))),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: otherCourses.length,
-                    itemBuilder: (context, index) {
-                      var item = otherCourses[index];
-                      return Container(
-                        height: 70,
-                        margin: EdgeInsets.only(bottom: 14),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          border:
-                              Border.all(color: Colors.grey.shade300, width: 1),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Row(
-                            children: [
-                              Image.asset(item["image"],
-                                  width: screenWidth * 0.05,
-                                  height: screenWidth * 0.05),
-                              SizedBox(width: screenWidth * 0.04),
-                              Expanded(
-                                child: Text(item["courseName"],
-                                    style: TextStyle(
-                                        fontSize: screenWidth * 0.04,
-                                        fontWeight: FontWeight.w400)),
+                            ),
+                          );
+                        },
+                      ),
+                      Text("Other Courses",
+                          style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff161537))),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: otherCourses.length,
+                        itemBuilder: (context, index) {
+                          var item = otherCourses[index];
+                          return Container(
+                            height: 70,
+                            margin: EdgeInsets.only(bottom: 14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                  color: Colors.grey.shade300, width: 1),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16),
+                              child: Row(
+                                children: [
+                                  Image.asset(item["image"],
+                                      width: screenWidth * 0.05,
+                                      height: screenWidth * 0.05),
+                                  SizedBox(width: screenWidth * 0.04),
+                                  Expanded(
+                                    child: Text(item["courseName"],
+                                        style: TextStyle(
+                                            fontSize: screenWidth * 0.04,
+                                            fontWeight: FontWeight.w400)),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),

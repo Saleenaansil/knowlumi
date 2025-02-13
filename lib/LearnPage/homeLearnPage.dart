@@ -153,8 +153,8 @@ class _HomelearnpageState extends State<Homelearnpage> {
       body: (index != 0)
           ? Column(
               children: [
-                if (index == 1) Myclasspage(),
-                if (index == 2) Coursepage(),
+                if (index == 1) Expanded(child: Myclasspage()),
+                if (index == 2) Expanded(child: Coursepage()),
               ],
             )
           : SingleChildScrollView(
@@ -191,12 +191,20 @@ class _HomelearnpageState extends State<Homelearnpage> {
                                 items: ["FLUTTER", "MERN"]
                                     .map((e) => DropdownMenuItem<String>(
                                           value: e,
-                                          child: Text(
-                                            e,
-                                            style: const TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.black,
+                                          child: Container(
+                                            width: 348, // Fixed width
+                                            height: 50,
+                                            color: Colors.red,
+                                            alignment: Alignment.centerLeft,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 14),
+                                            child: Text(
+                                              e,
+                                              style: const TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ),
                                         ))
@@ -205,29 +213,15 @@ class _HomelearnpageState extends State<Homelearnpage> {
                                   if (newValue != null) {
                                     appController.changeCourse(newValue);
                                   }
+                                  print(newValue);
                                 },
                                 style: const TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: Color(0xffB61B76),
                                 ),
-                                buttonStyleData: ButtonStyleData(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                    border:
-                                        Border.all(color: Colors.grey.shade300),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+
+                                // Custom button with dropdown icon
                                 customButton: Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: const ImageIcon(
@@ -235,12 +229,16 @@ class _HomelearnpageState extends State<Homelearnpage> {
                                     color: Colors.black,
                                   ),
                                 ),
-                                isExpanded: false,
+
+                                isExpanded: true,
                                 alignment: Alignment.center,
+
+                                // Dropdown menu styling
                                 dropdownStyleData: DropdownStyleData(
                                   width: 348, // Fixed width
-                                  padding: const EdgeInsets.fromLTRB(10, 20, 10,
-                                      16), // Padding: top 16, right 10, bottom 16, left 10
+                                  maxHeight: 114, // Fixed height
+                                  padding: const EdgeInsets.only(
+                                      left: 16, right: 16),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(16),
@@ -254,16 +252,17 @@ class _HomelearnpageState extends State<Homelearnpage> {
                                       ),
                                     ],
                                   ),
-                                  offset: const Offset(4,
-                                      -43), // Adjust offset to position the dropdown
+                                  offset: const Offset(
+                                      -4, -48), // Adjust popup position
                                 ),
+
+                                // Individual menu item styling
                                 menuItemStyleData: const MenuItemStyleData(
                                   height: 50, // Height of each menu item
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 14), // Padding for menu items
+                                  padding: EdgeInsets.symmetric(horizontal: 14),
                                 ),
                               );
-                            }),
+                            })
                           ],
                         ),
                       );
