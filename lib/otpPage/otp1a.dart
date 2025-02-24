@@ -126,9 +126,9 @@ class Otp1a extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xffE9F1FF), // Background color
-                    elevation: 3, // Elevation (shadow)
+                    backgroundColor: const Color(0xffE9F1FF),
+                    // Background color
+                    // elevation: 3, // Elevation (shadow)
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18), // Radius of 18px
                     ),

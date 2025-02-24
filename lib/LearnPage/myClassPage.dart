@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:knowlumi/classes%20Page/classPage1.dart';
 import 'package:knowlumi/customwidget/customText.dart';
 import '../controllerPage/appController.dart';
 import 'package:knowlumi/customwidget/customColor.dart';
 
 class Myclasspage extends StatefulWidget {
-  Myclasspage({super.key});
-
+  final String? selectedValue;
+  const Myclasspage({Key? key, required this.selectedValue}) : super(key: key);
   @override
   State<Myclasspage> createState() => _MyclasspageState();
 }
@@ -30,9 +31,114 @@ class _MyclasspageState extends State<Myclasspage> {
     {"image": "asset/bookIcon.png", "name": "OOPS", "message": "3 Chapters"}
   ];
 
-  String? selectedCourse;
-  // Stores selected dropdown item
   final List<String> courseOptions = ["FLUTTER", "MERN"];
+  int index = 0;
+
+  String? selectedValue;
+  void initState() {
+    super.initState();
+    // Initialize the selectedValue with the value passed from Homelearnpage
+    selectedValue = widget.selectedValue;
+  }
+
+  OverlayEntry? overlayEntry;
+
+  void showPopupMenu(BuildContext context, Offset offset) {
+    //overlayEntry?.remove();
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: 22,
+        right: 15,
+        top: 170,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 348,
+            height: 114,
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(courseOptions.length, (index) {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedValue = courseOptions[index];
+                        });
+                        overlayEntry?.remove();
+                      },
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 18, right: 14, top: 12),
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              courseOptions[index],
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    if (index != courseOptions.length - 1)
+                      const Divider(
+                        color: Colors.grey,
+                        thickness: 0.5,
+                        height: 1,
+                      ),
+                  ],
+                );
+              }),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry!);
+  }
+
+  Widget _buildIcon(String imagePath, bool isSelected) {
+    return ShaderMask(
+      shaderCallback: (bounds) {
+        return LinearGradient(
+          colors: isSelected
+              ? [Color(0xFF500C34), Color(0xFFB61B76)]
+              : [Color(0xFFCCCCCC), Color(0xFFCCCCCC)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ).createShader(bounds);
+      },
+      child: Image.asset(imagePath, width: 24, height: 24, color: Colors.white),
+    );
+  }
+
+  BottomNavigationBarItem _buildNavItem(String imagePath, String label, int i) {
+    bool isSelected = index == i;
+    return BottomNavigationBarItem(
+      icon: _buildIcon(imagePath, isSelected),
+      label: label,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +177,8 @@ class _MyclasspageState extends State<Myclasspage> {
                 ),
                 Positioned(
                   top: 116, // 116px from top
-                  left: 14, // 14px from left
+                  left: 14,
+                  right: 14, // 14px from left
                   child: ClipRect(
                     // Ensures no clipping issue
                     child: Container(
@@ -104,12 +211,13 @@ class _MyclasspageState extends State<Myclasspage> {
                           ),
 
                           Spacer(),
-                          if (selectedCourse != null)
+                          if (selectedValue != null)
                             Padding(
-                              padding: const EdgeInsets.only(right: 5),
+                              padding:
+                                  const EdgeInsets.only(left: 14, right: 14),
                               child: Text(
-                                selectedCourse!,
-                                style: TextStyle(
+                                selectedValue!,
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black,
@@ -117,19 +225,9 @@ class _MyclasspageState extends State<Myclasspage> {
                               ),
                             ),
                           // Dropdown button
-                          PopupMenuButton<String>(
-                            onSelected: (String value) {
-                              setState(() {
-                                selectedCourse = value;
-                              });
-                            },
-                            itemBuilder: (BuildContext context) {
-                              return courseOptions.map((String choice) {
-                                return PopupMenuItem<String>(
-                                  value: choice,
-                                  child: Text(choice),
-                                );
-                              }).toList();
+                          GestureDetector(
+                            onTapDown: (details) {
+                              showPopupMenu(context, details.globalPosition);
                             },
                             child: Image.asset("asset/down-arrow 1.png"),
                           ),
@@ -163,71 +261,85 @@ class _MyclasspageState extends State<Myclasspage> {
                     // Wrapping ListView in Flexible to avoid overflow
                     for (var data in courseItem)
                       Padding(
-                        padding: const EdgeInsets.only(top: 14),
-                        child: Container(
-                          width: double.infinity,
-                          height: 80,
-                          margin: EdgeInsets.symmetric(vertical: 4),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 12), // Reduced padding
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 0.5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.shade200,
-                                blurRadius: 4,
-                                spreadRadius: 1,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              // Image container
-                              Container(
-                                width: 40, // Reduced width
-                                height: 40, // Reduced height
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
+                        padding: const EdgeInsets.only(top: 12),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Classpage1()),
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 80,
+                            margin: EdgeInsets.symmetric(vertical: 4),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 12, horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                  color: Colors.grey.shade300, width: 0.5),
+                              boxShadow: [
+                                BoxShadow(
                                   color: Colors.grey.shade200,
+                                  blurRadius: 4,
+                                  spreadRadius: 1,
                                 ),
-                                child: Center(
-                                  child: Image.asset(
-                                    data["image"]!,
-                                    width: 40, // Reduced size
-                                    height: 40,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 1.5), // Reduced space
-
-                              // Expanded column for text
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
                                   children: [
-                                    Text(
-                                      data["name"],
-                                      style: TextStyle(
-                                        fontSize: 14, // Reduced font size
-                                        fontWeight: FontWeight.w600,
+                                    // Image container
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.grey.shade200,
+                                      ),
+                                      child: Center(
+                                        child: Image.asset(
+                                          data["image"]!,
+                                          width: 40,
+                                          height: 40,
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(height: 3), // Reduced spacing
-                                    Text(
-                                      data["message"],
-                                      style: TextStyle(
-                                        fontSize: 12, // Reduced font size
-                                        color: Colors.grey.shade600,
+                                    SizedBox(width: 12),
+
+                                    // Expanded column for text
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            data["name"],
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            data["message"],
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey.shade600,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       )

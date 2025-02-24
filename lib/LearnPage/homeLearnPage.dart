@@ -1,12 +1,8 @@
-import 'dart:math';
-
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowlumi/LearnPage/coursePage.dart';
 import 'package:knowlumi/LearnPage/myClassPage.dart';
-import 'package:knowlumi/LearnPage/profilePicture.dart';
-import 'package:knowlumi/LearnPage/test.dart';
+
 import 'package:knowlumi/controllerPage/appController.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import '../customwidget/customColor.dart';
@@ -41,8 +37,86 @@ class _HomelearnpageState extends State<Homelearnpage> {
       "rightarrow": "asset/rightarrow.png"
     },
   ];
-
+  final List<String> courseOptions = ["FLUTTER", "MERN"];
   int index = 0;
+
+  String? selectedValue = "MERN";
+  OverlayEntry? overlayEntry;
+
+  void showPopupMenu(BuildContext context, Offset offset) {
+    //overlayEntry?.remove();
+    overlayEntry = OverlayEntry(
+      builder: (context) => Positioned(
+        left: 22,
+        right: 15,
+        top: 170,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            width: 348,
+            height: 114,
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5,
+                  spreadRadius: 2,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(courseOptions.length, (index) {
+                return Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedValue = courseOptions[index];
+                        });
+
+                        overlayEntry?.remove();
+                      },
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: const EdgeInsets.only(
+                              left: 18, right: 14, top: 12),
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              courseOptions[index],
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    if (index != courseOptions.length - 1)
+                      const Divider(
+                        color: Colors.grey,
+                        thickness: 0.5,
+                        height: 1,
+                      ),
+                  ],
+                );
+              }),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    Overlay.of(context).insert(overlayEntry!);
+  }
 
   Widget _buildIcon(String imagePath, bool isSelected) {
     return ShaderMask(
@@ -153,7 +227,8 @@ class _HomelearnpageState extends State<Homelearnpage> {
       body: (index != 0)
           ? Column(
               children: [
-                if (index == 1) Expanded(child: Myclasspage()),
+                if (index == 1)
+                  Expanded(child: Myclasspage(selectedValue: selectedValue)),
                 if (index == 2) Expanded(child: Coursepage()),
               ],
             )
@@ -175,94 +250,53 @@ class _HomelearnpageState extends State<Homelearnpage> {
                           ),
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        padding: const EdgeInsets.only(left: 14, right: 14),
+                        padding: const EdgeInsets.only(left: 15, right: 11.04),
                         child: Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.start, // Justify space-between
                           children: [
-                            const ImageIcon(
+                            Container(),
+                            ImageIcon(
                               AssetImage("asset/Icon.png"),
                               color: Color(0xff316A69),
+                              size: 20,
                             ),
-                            const SizedBox(width: 3.4),
-                            const Text("My Course"),
-                            const Spacer(),
-                            Obx(() {
-                              return DropdownButton2<String>(
-                                value: appController.selectedCourse.value,
-                                items: ["FLUTTER", "MERN"]
-                                    .map((e) => DropdownMenuItem<String>(
-                                          value: e,
-                                          child: Container(
-                                            width: 348, // Fixed width
-                                            height: 50,
-                                            color: Colors.red,
-                                            alignment: Alignment.centerLeft,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 14),
-                                            child: Text(
-                                              e,
-                                              style: const TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (newValue) {
-                                  if (newValue != null) {
-                                    appController.changeCourse(newValue);
-                                  }
-                                  print(newValue);
-                                },
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xffB61B76),
-                                ),
-
-                                // Custom button with dropdown icon
-                                customButton: Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: const ImageIcon(
-                                    AssetImage("asset/down-arrow 1.png"),
-                                    color: Colors.black,
-                                  ),
-                                ),
-
-                                isExpanded: true,
-                                alignment: Alignment.center,
-
-                                // Dropdown menu styling
-                                dropdownStyleData: DropdownStyleData(
-                                  width: 348, // Fixed width
-                                  maxHeight: 114, // Fixed height
-                                  padding: const EdgeInsets.only(
-                                      left: 16, right: 16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(16),
-                                    border:
-                                        Border.all(color: Colors.grey.shade300),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
+                            SizedBox(width: 2),
+                            const Text(
+                              "My Course",
+                              style: TextStyle(
+                                  fontSize: 13, fontWeight: FontWeight.w400),
+                            ),
+                            Spacer(),
+                            Row(
+                              children: [
+                                // Display selected value (if available)
+                                if (selectedValue != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 14, right: 14),
+                                    child: Text(
+                                      selectedValue!,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black,
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                  offset: const Offset(
-                                      -4, -48), // Adjust popup position
-                                ),
 
-                                // Individual menu item styling
-                                menuItemStyleData: const MenuItemStyleData(
-                                  height: 50, // Height of each menu item
-                                  padding: EdgeInsets.symmetric(horizontal: 14),
+                                // Dropdown button (Pressable)
+                                GestureDetector(
+                                  onTapDown: (details) {
+                                    showPopupMenu(
+                                        context, details.globalPosition);
+                                  },
+                                  child: Image.asset("asset/down-arrow 1.png"),
                                 ),
-                              );
-                            })
+                              ],
+                            )
+
+                            // Example dropdown icon
                           ],
                         ),
                       );
@@ -272,6 +306,7 @@ class _HomelearnpageState extends State<Homelearnpage> {
                       options: CarouselOptions(
                         enlargeCenterPage: true,
                         viewportFraction: 1.0,
+                        autoPlay: true,
                         onPageChanged: (index, reason) {
                           appController.changeCarouselIndex(index);
                         },
@@ -332,11 +367,11 @@ class _HomelearnpageState extends State<Homelearnpage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        minimumSize: Size(91, 35),
-                                        padding: EdgeInsets.symmetric(
+                                        minimumSize:const Size(91, 35),
+                                        padding:const EdgeInsets.symmetric(
                                             horizontal: 14, vertical: 10),
                                       ),
-                                      child: Text(
+                                      child: const Text(
                                         "Enroll Now",
                                         style: TextStyle(
                                           fontSize: 12,
@@ -353,42 +388,44 @@ class _HomelearnpageState extends State<Homelearnpage> {
                         );
                       }),
                     ),
-                    SizedBox(
+                  const  SizedBox(
                       height: 10,
                     ),
                     Obx(() {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(5, (index) {
+                          bool isActive =
+                              appController.carouselIndex.value == index;
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Container(
-                              width: 8, // Set width
-                              height: 8, // Set height
+                              width: isActive ? 16 : 8, // Make active dot wider
+                              height: 8, // Keep height constant
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle, // Ensure it's circular
-                                color: appController.carouselIndex.value ==
-                                        index
-                                    ? null // We will use gradient for selected item
-                                    : Colors.grey, // Inactive circle color
-                                gradient: appController.carouselIndex.value ==
-                                        index
-                                    ? LinearGradient(
+                                borderRadius: isActive
+                                    ? BorderRadius.circular(
+                                        8) // Oval for active
+                                    : BorderRadius.circular(
+                                        4), // Circle for inactive
+                                color: isActive ? null : Colors.grey,
+                                gradient: isActive
+                                    ? const LinearGradient(
                                         colors: [
                                           Color(0xFF671043),
                                           Color(0xFFB61B76)
-                                        ], // Gradient colors
+                                        ],
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                       )
-                                    : null, // No gradient for inactive items
+                                    : null, // Apply gradient only for active
                               ),
                             ),
                           );
                         }),
                       );
                     }),
-                    SizedBox(
+                  const  SizedBox(
                       height: 16,
                     ),
                     Padding(
@@ -529,7 +566,7 @@ class _HomelearnpageState extends State<Homelearnpage> {
               ),
             ),
       bottomNavigationBar: BottomNavigationBar(
-        //  type: BottomNavigationBarType.fixed,
+        type: BottomNavigationBarType.fixed,
         backgroundColor: Color(0xffFFFFFF),
         currentIndex: index,
         selectedItemColor: Color(0xFF500C34), // Selected label color
@@ -542,8 +579,6 @@ class _HomelearnpageState extends State<Homelearnpage> {
           });
           // appController.changeIndex(index);
           // _navigateToPage(index); // ✅ FIXED: Added navigation function
-
-          index = i;
         },
         items: [
           _buildNavItem(

@@ -11,16 +11,25 @@ class Coursepage extends StatelessWidget {
   final Appcontroller appController = Get.put(Appcontroller());
 
   final List<Map> subscriptedItem = [
-    {"image": "asset/Icon.png", "courseName": "MERN"},
-    {"image": "asset/Icon.png", "courseName": "Junior  WEB DEV - Crash Course"}
+    {"image": "asset/courseListIcon.png", "courseName": "MERN"},
+    {
+      "image": "asset/courseListIcon.png",
+      "courseName": "Junior  WEB DEV - Crash Course"
+    }
   ];
 
   final List<Map> otherCourses = [
-    {"image": "asset/Icon.png", "courseName": "Junior  WEB DEV - Crash Course"},
-    {"image": "asset/Icon.png", "courseName": "Junior  WEB DEV - Crash Course"},
-    {"image": "asset/Icon.png", "courseName": "MERN"},
-    {"image": "asset/Icon.png", "courseName": "REACT"},
-    {"image": "asset/Icon.png", "courseName": "MongoDB"},
+    {
+      "image": "asset/courseListIcon.png",
+      "courseName": "Junior  WEB DEV - Crash Course"
+    },
+    {
+      "image": "asset/courseListIcon.png",
+      "courseName": "Junior  WEB DEV - Crash Course"
+    },
+    {"image": "asset/courseListIcon.png", "courseName": "MERN"},
+    {"image": "asset/courseListIcon.png", "courseName": "REACT"},
+    {"image": "asset/courseListIcon.png", "courseName": "MongoDB"},
   ];
 
   @override
@@ -37,7 +46,7 @@ class Coursepage extends StatelessWidget {
               height: 112,
               decoration: BoxDecoration(gradient: Customcolor.primaryGradient),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+                padding: EdgeInsets.only(top: 54, left: 16),
                 child: Row(
                   children: [
                     Text(
@@ -53,11 +62,18 @@ class Coursepage extends StatelessWidget {
                       children: [
                         Stack(
                           children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.notifications,
-                                  size: screenWidth * 0.06,
-                                  color: Colors.white),
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Color.fromARGB(0, 144, 144, 160)),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(Icons.notifications,
+                                    size: screenWidth * 0.06,
+                                    color: Colors.white),
+                              ),
                             ),
                             Positioned(
                               right: 4,
@@ -85,11 +101,13 @@ class Coursepage extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 14),
             SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.only(left: 14, right: 14),
+                padding: const EdgeInsets.only(left: 18, right: 18),
                 child: Container(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Subscribed Courses",
@@ -119,7 +137,8 @@ class Coursepage extends StatelessWidget {
                                 children: [
                                   Image.asset(item["image"],
                                       width: screenWidth * 0.05,
-                                      height: screenWidth * 0.05),
+                                      height: screenWidth * 0.05,
+                                      color: Color(0xff000000)),
                                   SizedBox(width: screenWidth * 0.04),
                                   Expanded(
                                     child: Text(item["courseName"],
@@ -133,6 +152,7 @@ class Coursepage extends StatelessWidget {
                           );
                         },
                       ),
+                      SizedBox(height: 20),
                       Text("Other Courses",
                           style: TextStyle(
                               fontSize: screenWidth * 0.05,
@@ -154,8 +174,9 @@ class Coursepage extends StatelessWidget {
                                   color: Colors.grey.shade300, width: 1),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 16),
+                              padding: const EdgeInsets.only(left: 18),
                               child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Image.asset(item["image"],
                                       width: screenWidth * 0.05,

@@ -292,12 +292,14 @@ class LoginPage1 extends StatelessWidget {
                         endIndent: 8,
                       ),
                     ),
+                    SizedBox(width: 6),
                     CustomText(
                       text: "OR",
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xff1F2D43CC),
+                      color: Colors.black,
                     ),
+                    SizedBox(width: 6),
                     Expanded(
                       child: Divider(
                         color: Color(0xff1F2D43CC),
@@ -338,30 +340,30 @@ class LoginPage1 extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: screenWidth * 0.02),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xffE9F1FF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                          // Fix the size (width: 125px, height: 27px)
-
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth * 0.04, vertical: 8),
-                        ),
-                        onPressed: () {
+                      GestureDetector(
+                        onTap: () {
                           Get.off(() => const LoginPage2());
                           print("Register Now button tapped");
                         },
-                        child: const Text(
-                          "Register Now",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff1F2D43),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            // color:
+                            //     Colors.blue, // Change to your preferred color
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth * 0.04, vertical: 8),
+                          child: const Text(
+                            "Register Now",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xff1F2D43),
+                            ),
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

@@ -126,7 +126,7 @@ class Otppage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor:
                         const Color(0xffE9F1FF), // Background color
-                    elevation: 3, // Elevation (shadow)
+                    //  elevation: 3, // Elevation (shadow)
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(18), // Radius of 18px
                     ),
