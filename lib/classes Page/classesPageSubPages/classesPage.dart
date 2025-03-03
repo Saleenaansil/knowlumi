@@ -48,7 +48,6 @@ class _ClassesPageState extends State<ClassesPage> {
     },
   ];
 
-  // Track download status for both lists
   List<bool> classesDownloaded = [];
   List<bool> objectivesDownloaded = [];
 
@@ -117,14 +116,14 @@ class _ClassesPageState extends State<ClassesPage> {
                 : Color(0xffB61B76);
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 3),
               child: Container(
-                height: 65,
+                height: 55,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(item["playButton"], height: 30, width: 30),
-                    SizedBox(width: 8),
+                    SizedBox(width: 6),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +135,7 @@ class _ClassesPageState extends State<ClassesPage> {
                             fontWeight: FontWeight.w500,
                             color: Colors.black,
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 2),
                           Row(
                             children: [
                               CustomText(
@@ -145,11 +144,11 @@ class _ClassesPageState extends State<ClassesPage> {
                                 fontWeight: FontWeight.w400,
                                 color: Colors.grey,
                               ),
-                              SizedBox(width: 6),
+                              SizedBox(width: 4),
                               if (item["status"].isNotEmpty)
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 2),
+                                      horizontal: 5, vertical: 2),
                                   decoration: BoxDecoration(
                                     color: statusColor.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(4),
@@ -174,8 +173,8 @@ class _ClassesPageState extends State<ClassesPage> {
                       },
                       child: Image.asset(
                         downloadStatus[index]
-                            ? "asset/tick.png" // ✅ Tick icon after tap
-                            : item["downLoadButton"], // ⬇️ Download icon
+                            ? "asset/tick.png"
+                            : item["downLoadButton"],
                         height: 24,
                         width: 24,
                       ),
@@ -193,7 +192,8 @@ class _ClassesPageState extends State<ClassesPage> {
   Widget _divider() {
     return Center(
       child: Container(
-        width: 316,
+        width: 300,
+        margin: EdgeInsets.symmetric(vertical: 5),
         child: Divider(
           thickness: 1,
           color: Colors.grey.shade300,

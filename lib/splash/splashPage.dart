@@ -6,8 +6,11 @@ import 'package:knowlumi/classes%20Page/classesPageSubPages/startclasspage.dart'
 import 'package:knowlumi/classes%20Page/classesPageSubPages/videosection.dart';
 import 'package:knowlumi/customwidget/customColor.dart';
 import 'package:knowlumi/customwidget/customText.dart';
+import 'package:knowlumi/homePageExpansions/Preparation/Learn.dart';
+import 'package:knowlumi/homePageExpansions/pressLearnButton/referals.dart';
 import 'package:knowlumi/loginPage/loginPage1.dart';
 import 'package:knowlumi/loginPage/loginPage2.dart';
+import 'package:knowlumi/videoSectionClasses/firstPage.dart';
 
 class Splashpage extends StatelessWidget {
   const Splashpage({super.key});
@@ -17,8 +20,11 @@ class Splashpage extends StatelessWidget {
     // Trigger navigation after a delay
     Future.delayed(const Duration(milliseconds: 2000), () {
       Get.off(() => LoginPage1());
+      // Get.off(() => preparationPage());
       //  Get.off(() => Startclasspage());
       // Get.off(() => Homepagedummy());
+      //t.off(() => Firstpage());
+      //Get.off(() => ReferalsPage());
     });
 
     return Scaffold(
@@ -31,7 +37,7 @@ class Splashpage extends StatelessWidget {
             text: "KNOWLUMI",
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color:  Color(0xffE5E5E5),
+            color: Color(0xffE5E5E5),
           ),
         ),
       ),

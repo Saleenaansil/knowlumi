@@ -29,6 +29,7 @@ class _Classpage1State extends State<Classpage1> {
             selectedIndex == 0 ? TopSection() : Videosection(),
 
             // Tab Row
+            SizedBox(),
             SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16),

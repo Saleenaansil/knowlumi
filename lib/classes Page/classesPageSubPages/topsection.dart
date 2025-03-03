@@ -95,7 +95,7 @@ class TopSection extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              Startclasspage()), // Replace NextPage with your actual page
+                              StartClassPage()), // Replace NextPage with your actual page
                     );
                   },
                   child: CustomText(

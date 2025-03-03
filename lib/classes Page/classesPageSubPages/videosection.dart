@@ -131,7 +131,7 @@ class _VideosectionState extends State<Videosection> {
         // Video Progress Bar & Time
         Positioned(
           top: 200,
-          left: 20,
+          left: 5,
           right: 20,
           child: Column(
             children: [
@@ -156,7 +156,7 @@ class _VideosectionState extends State<Videosection> {
               ),
               Transform.translate(
                 offset:
-                    const Offset(-290, -4), // Pulls time text closer to slider
+                    const Offset(-280, -4), // Pulls time text closer to slider
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
